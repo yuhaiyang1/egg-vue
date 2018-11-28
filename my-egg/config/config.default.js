@@ -39,7 +39,7 @@ module.exports = appInfo => {
   // 先 ignore 掉 csrf
   config.security = {
     csrf: {
-      ignoreJSON: true
+      enable: false,
     }
   };
   return config;

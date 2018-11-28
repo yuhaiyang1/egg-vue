@@ -5,5 +5,5 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  return router.post('/login', controller.user.login)
+  router.post('/login', controller.user.login)
 };

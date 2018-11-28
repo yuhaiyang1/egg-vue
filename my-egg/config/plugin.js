@@ -12,6 +12,9 @@ exports.cors = {
   package: 'egg-cors',
 };
 exports.security = {
-  domainWhiteList: '*' 
+  domainWhiteList: ['http:localhost:8080'],
+  csrf: {
+    enable: false,
+  },
 };
 
