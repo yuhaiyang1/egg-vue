@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+  <input>
+  <input>
+  <button>提交</button>
+<body>
+<script>
+  // axios.post('http://127.0.0.1:7001/user', {
+  //   username: 'yhy'
+  // })
+  // .then(function (res) {
+  //   if(res.status === 200) {
+  //     res = res.data
+  //     console.log(res, 'res')
+  //     if(res.success) {
+  //       const { msg } = res
+       
+  //       document.body.innerHTML = `<div>${msg}</div>`
+  //     }
+  //   }
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+  var a = async () =>  {
+    let res =  await axios.post('http://127.0.0.1:7001/login', {
+      username: 'yhy'
+    })
+    if(res.status === 200) {
+      res = res.data
+      console.log(res, 'res')
+      if(res.success) {
+        const { data} = res
+        document.body.innerHTML = `<div>
+          <p>id: ${data.id}</p>
+          <p>名字: ${data.name}</p>
+          <p>身份: ${data.identity}</p>
+        </div>`
+      }
+    }
+  }
+  a()
+</script>
+
+</body>
+</html>
