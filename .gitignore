@@ -2,7 +2,7 @@ logs/
 npm-debug.log
 yarn-error.log
 my-egg/node_modules/
-my-vue/node_modules/
+vue/node_modules/
 package-lock.json
 yarn.lock
 coverage/
