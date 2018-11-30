@@ -6,9 +6,14 @@ export default {
     userInfo,
   },
   mutations: {
-    login(state, newUserInfo) {
+    login (state, newUserInfo) {
       state.userInfo = newUserInfo;
       window.localStorage.setItem('userInfo',JSON.stringify(newUserInfo))
+    },
+    logout (state) {
+      console.log('登出')
+      state.userInfo = {}
+      window.localStorage.removeItem('userInfo')
     }
   }
 }

@@ -2,50 +2,52 @@
 <div class="container" id="app">
   <transition name="fade">
     <keep-alive>
-      <el-container style="height: 100%; border: 1px solid #eee">
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-   <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
-      background-color="#fff"
-      text-color="rgba(0,0,0,.65)"
-      active-text-color="#1890ff">
-       <el-menu-item index="1">
-        <i class="el-icon-info"></i>
-        <span slot="title">导航一</span>
-      </el-menu-item>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
-    </el-menu>
-    </el-aside>
-    
-    <el-container>
-      <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>登出</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <span>{{user.userInfo.name}}</span>
-      </el-header>
-      <el-main>
+      <el-container v-if='user.userInfo.id'  style="height: 100%; border: 1px solid #eee">
+        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+          <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            @open="handleOpen"
+            @close="handleClose"
+            background-color="#fff"
+            text-color="rgba(0,0,0,.65)"
+            active-text-color="#1890ff">
+            <el-menu-item index="1">
+              <i class="el-icon-info"></i>
+              <span slot="title">导航一</span>
+            </el-menu-item>
+            <el-menu-item index="2">
+              <i class="el-icon-menu"></i>
+              <span slot="title">导航二</span>
+            </el-menu-item>
+            <el-menu-item index="3">
+              <i class="el-icon-document"></i>
+              <span slot="title">导航三</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <i class="el-icon-setting"></i>
+              <span slot="title">导航四</span>
+            </el-menu-item>
+          </el-menu>
+        </el-aside>
+        <el-container>
+          <el-header style="text-align: right; font-size: 12px">
+            <el-dropdown  @command="handleCommand">
+              <i class="el-icon-setting" style="margin-right: 15px"></i>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="logout">登出</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <span>{{user.userInfo.name}}</span>
+          </el-header>
+          <el-main>
+            <router-view></router-view>
+          </el-main>
+        </el-container>
+      </el-container>
+      <div v-else>
         <router-view></router-view>
-      </el-main>
-    </el-container>
-  </el-container>
+      </div>
     </keep-alive>
   </transition>
 </div>
@@ -88,6 +90,18 @@
         return {
           tableData: Array(20).fill(item)
         }
+      },
+      methods: {
+         handleCommand(command) {
+          if (command === 'logout') {
+            // 先发请求
+            this.logout()
+             this.$router.push('login')
+          }
+        },
+        ...mapMutations([
+          'logout'
+        ])
       }
     };
 </script>

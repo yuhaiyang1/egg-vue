@@ -1,5 +1,5 @@
 <template>
-  <div id='login'>
+  <div id='login' v-if='!user.userInfo.id'>
     <el-form :model="loginForm" :rules="rules" ref="loginForm" laclass="demo-ruleForm" label-width='60px'>
     <img src='http://img2.3png.com/379818c5618cdbd8aa17c4c351de602e4cc9.png' class="login-logo"/>
     <el-form-item label="账号" prop="name">
@@ -14,6 +14,10 @@
     </el-form-item>
   </el-form>
   </div>
+  <div v-else>
+    1
+    <h1>{{user.userInfo.id}}</h1>
+  </div>
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex'
@@ -23,6 +27,7 @@ import { login } from 'service'
       'user'
     ]),
     data() {
+      console.log(this.user, '11')
       return {
         loginForm: {
           name: '',
