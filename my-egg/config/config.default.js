@@ -7,7 +7,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1543029610119_4473';
 
   // 设置中间件
-  config.middleware = ['gzip', 'middlewareOne'];
+  config.middleware = ['gzip', 'login'];
 
   // 处理 cors
   config.cors = {
@@ -35,12 +35,21 @@ module.exports = appInfo => {
     // 是否加载到 agent 上，默认关闭
     agent: false,
   }
-  
+
   // 先 ignore 掉 csrf
   config.security = {
     csrf: {
       enable: false,
     }
   };
+  // 设置 session 过期时间
+  config.session = {
+    key: 'session',
+    maxAge: 1000 * 60 * 60 * 24, // 最大持久时间
+    // expires: 10 * 1000, // 失效日期
+    httpOnly: true, // 是否被js访问
+    encrypt: true  // 是否加密
+  }
+
   return config;
 };

@@ -2,11 +2,13 @@
 <div class="container" id="app">
   <transition name="fade">
     <keep-alive>
-      <el-container v-if='user.userInfo.id'  style="height: 100%; border: 1px solid #eee">
-        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+      <el-container v-if='user.userInfo.id'
+        style="height: 100%; border: 1px solid #eee"
+        >
+        <el-header>
           <el-menu
+            mode="horizontal"
             default-active="2"
-            class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"
             background-color="#fff"
@@ -14,11 +16,11 @@
             active-text-color="#1890ff">
             <el-menu-item index="1">
               <i class="el-icon-info"></i>
-              <span slot="title">导航一</span>
+              <span slot="title">院线热映</span>
             </el-menu-item>
             <el-menu-item index="2">
               <i class="el-icon-menu"></i>
-              <span slot="title">导航二</span>
+              <span slot="title">Top250</span>
             </el-menu-item>
             <el-menu-item index="3">
               <i class="el-icon-document"></i>
@@ -29,21 +31,19 @@
               <span slot="title">导航四</span>
             </el-menu-item>
           </el-menu>
-        </el-aside>
-        <el-container>
-          <el-header style="text-align: right; font-size: 12px">
+          <div class="app-right">
             <el-dropdown  @command="handleCommand">
-              <i class="el-icon-setting" style="margin-right: 15px"></i>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="logout">登出</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <span>{{user.userInfo.name}}</span>
-          </el-header>
-          <el-main>
-            <router-view></router-view>
-          </el-main>
-        </el-container>
+            <i class="el-icon-setting" style="margin-right: 15px"></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="logout">登出</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <span>{{user.userInfo.name}}</span>
+          </div>
+        </el-header>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
       <div v-else>
         <router-view></router-view>
@@ -63,9 +63,12 @@
   height: 100%;
 }
 .el-header {
-  background-color: #B3C0D1;
   color: #333;
   line-height: 60px;
+  text-align: right;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .el-aside {
@@ -74,9 +77,13 @@
 .el-menu {
   height: 100%;
 }
+.app-right {
+  width: 200px;
+}
 </style>
 <script>
   import { mapState, mapMutations } from 'vuex'
+  import { logout } from 'service'
     export default {
       computed: mapState([
         'user'
@@ -92,10 +99,13 @@
         }
       },
       methods: {
-         handleCommand(command) {
+         async handleCommand(command) {
           if (command === 'logout') {
             // 先发请求
-            this.logout()
+            const res = await logout()
+            if (res) {
+             this.logout()
+            }
              this.$router.push('login')
           }
         },

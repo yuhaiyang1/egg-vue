@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Loading } from 'element-ui'
 axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.interceptors.response.use(config => {

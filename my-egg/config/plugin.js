@@ -17,4 +17,5 @@ exports.security = {
     enable: false,
   },
 };
+exports.session = true
 

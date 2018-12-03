@@ -5,3 +5,9 @@ export const login = async ( params = {}) => {
     {  name, password }
   )
 }
+export const logout = async () => {
+  return await axios('/api/logout')
+}
+export const getMovieList = async ( params = {}) => {
+  return await axios('/api/movies', params)
+}

@@ -9,8 +9,11 @@
     "egg-cors": "^2.1.1",
     "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.5.0",
+    "egg-session": "^3.1.0",
     "lodash": "^4.17.11",
-    "ms": "^2.1.1"
+    "ms": "^2.1.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "autod": "^3.0.1",
