@@ -9,12 +9,11 @@
           <el-menu
             mode="horizontal"
             default-active="2"
-            @open="handleOpen"
-            @close="handleClose"
+            @select="handleSelect"
             background-color="#fff"
             text-color="rgba(0,0,0,.65)"
             active-text-color="#1890ff">
-            <el-menu-item index="1">
+            <el-menu-item index="home">
               <i class="el-icon-info"></i>
               <span slot="title">院线热映</span>
             </el-menu-item>
@@ -99,6 +98,12 @@
         }
       },
       methods: {
+        handleSelect(key, keyPath) {
+          // const routes = [{
+          //   path: 'home'
+          // }]
+          this.$router.push(key)
+        },
          async handleCommand(command) {
           if (command === 'logout') {
             // 先发请求
