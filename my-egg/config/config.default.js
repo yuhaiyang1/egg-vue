@@ -50,6 +50,8 @@ module.exports = appInfo => {
     httpOnly: true, // 是否被js访问
     encrypt: true  // 是否加密
   }
-
+  config.multipart = {
+    mode: 'stream',
+  };
   return config;
 };

@@ -4,6 +4,7 @@
   "description": "",
   "private": true,
   "dependencies": {
+    "await-stream-ready": "^1.0.1",
     "cors": "^2.8.5",
     "egg": "^2.14.1",
     "egg-cors": "^2.1.1",
@@ -11,6 +12,7 @@
     "egg-scripts": "^2.5.0",
     "egg-session": "^3.1.0",
     "lodash": "^4.17.11",
+    "md5": "^2.2.1",
     "ms": "^2.1.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
