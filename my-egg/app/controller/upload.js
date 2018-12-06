@@ -18,7 +18,7 @@ class UploadController extends Controller {
     //egg-multipart 已经帮我们处理文件二进制对象
     const stream = await ctx.getFileStream();
     const { fields } = stream
-    // 这里获取到除了文件以外的参数
+    // 这里获取到除了文件以外的参数 -
     console.log(fields)
     //新建一个文件名
     const filename = md5(stream.filename) + path

@@ -8,7 +8,7 @@ class UserController extends Controller {
     let result = {}
     result = await this.ctx.service.user.find({ name, password })
     if (_.isEmpty(result)) {
-      result = await this.ctx.service.user.insertData({ name, password , identity: 'nomal' })
+      result = await this.ctx.service.user.insertData({ name, password })
     }
     this.ctx.session.user = result
     this.ctx.body = {
