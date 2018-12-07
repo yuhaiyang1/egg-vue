@@ -12,13 +12,14 @@
 </head>
 <body>
     <input id="fileupload" type="file" name="file[]" data-url="http://localhost:7002/upload" multiple >
-    <img src='' alt='xxx' id='img'/>
+    <div class="files"></div>
 </body>
 	
 	<script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/blueimp-file-upload/9.17.0/js/vendor/jquery.ui.widget.min.js"></script>
 	<script src="https://cdn.bootcss.com/blueimp-file-upload/9.17.0/js/jquery.iframe-transport.min.js"></script>
-	<script src="https://cdn.bootcss.com/blueimp-file-upload/9.17.0/js/jquery.fileupload.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.17.0/js/jquery.fileupload.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-load-image/2.20.1/load-image.min.js"></script>
 <script>
   $(function () {
     $('#fileupload').fileupload({

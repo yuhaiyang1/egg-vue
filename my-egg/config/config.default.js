@@ -7,7 +7,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1543029610119_4473';
 
   // 设置中间件
-  config.middleware = ['gzip', 'login'];
+  config.middleware = ['login'];
 
   // 处理 cors
   config.cors = {

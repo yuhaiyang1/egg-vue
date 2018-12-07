@@ -11,6 +11,8 @@ const sendToWormhole = require('stream-wormhole');
 //当然你也可以不使用这个 哈哈 个人比较赖
 //还有我们这里使用了egg-multipart
 const md5 = require('md5');
+const FormData = require('form-data')
+const fetch = require('node-fetch')
 class UploadController extends Controller {
   async index() {
     const ctx = this.ctx;
@@ -44,6 +46,37 @@ class UploadController extends Controller {
     ctx.body = {
         url: '/public/uploads/' + filename
     };
+  }
+  async base64 () {
+      const ctx = this.ctx
+      const {laList} = ctx.request.body
+      let imgList = laList
+      imgList.forEach(item => {
+          item.base64 = item.type.replace(/^data:image\/\w+;base64,/, '');
+      })
+      const form = new FormData();
+      imgList = imgList.map(i => i.base64)
+      const imgBuffer =  imgList[0]
+      const dataBuffer = new Buffer(imgBuffer, 'base64');
+      form.append('file', dataBuffer, {
+        filename: Date.parse(new Date()) + '.jpg', //指定图片的名称
+        contentType: 'image/png', //图片类型，我这个地方写死了，可以从图片信息中拿到
+        knownLength: dataBuffer.length //buffer长度
+      });
+      fetch('http://127.0.0.1:7002/upload', {method: 'post', body: form, 
+        headers: form.getHeaders()}
+        )
+      .then(function (res) {
+        console.log(res, 'res')
+        return res.json();
+      }).then(function (body) {
+        console.log(body)
+      }).catch(function (err) {
+        console.log(err, 'err')
+      });
+//       // 过滤base64 头
+//       //然后存储到js buffer中
+      
   }
 }
 
