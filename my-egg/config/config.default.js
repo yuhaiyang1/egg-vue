@@ -14,7 +14,18 @@ module.exports = appInfo => {
     origin:'*',
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
   };
-
+  // config.bodyParser = {
+  //   enable: true,
+  //   formLimit: '2048kb',
+  //   jsonLimit: '2048kb',
+  //   strict: true,
+  //   // @see https://github.com/hapijs/qs/blob/master/lib/parse.js#L8 for more options
+  //   // queryString: {
+  //   //   arrayLimit: 100,
+  //   //   depth: 5,
+  //   //   parameterLimit: 1000,
+  //   // },
+  // };
   // // 连接 mysql
   // config.mysql = {
   //   // 单数据库信息配置

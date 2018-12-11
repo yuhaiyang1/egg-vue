@@ -12,7 +12,8 @@ const sendToWormhole = require('stream-wormhole');
 //还有我们这里使用了egg-multipart
 const md5 = require('md5');
 const FormData = require('form-data')
-const fetch = require('node-fetch')
+var formstream = require('formstream');
+
 class UploadController extends Controller {
   async index() {
     const ctx = this.ctx;
@@ -48,36 +49,39 @@ class UploadController extends Controller {
     };
   }
   async base64 () {
-      const ctx = this.ctx
-      const {laList} = ctx.request.body
-      let imgList = laList
-      imgList.forEach(item => {
-          item.base64 = item.type.replace(/^data:image\/\w+;base64,/, '');
-      })
-      const form = new FormData();
-      imgList = imgList.map(i => i.base64)
-      const imgBuffer =  imgList[0]
-      const dataBuffer = new Buffer(imgBuffer, 'base64');
-      form.append('file', dataBuffer, {
-        filename: Date.parse(new Date()) + '.jpg', //指定图片的名称
-        contentType: 'image/png', //图片类型，我这个地方写死了，可以从图片信息中拿到
-        knownLength: dataBuffer.length //buffer长度
-      });
-      fetch('http://127.0.0.1:7002/upload', {method: 'post', body: form, 
-        headers: form.getHeaders()}
-        )
-      .then(function (res) {
-        console.log(res, 'res')
-        return res.json();
-      }).then(function (body) {
-        console.log(body)
-      }).catch(function (err) {
-        console.log(err, 'err')
-      });
-//       // 过滤base64 头
-//       //然后存储到js buffer中
+    try {           
+      const ctx= this.ctx;
+      console.log(ctx.request)
+      const {laList} = ctx.request.body;
+      let imgList= [];
       
+      laList.forEach((item, index) => {
+          imgList[index] = {}
+          imgList[index].type = item.replace(/data:image\/([^;]+).*/i,'$1');
+          imgList[index].base64 = item.replace(/^data:image\/\w+;base64,/,'');
+      })
+      const  ids = [];
+      for(let i = 0; i < imgList.length; i++ ) {
+          const form =new FormData();
+          const { type, base64 } = imgList[i];
+          var dataBuffer= new Buffer(base64, 'base64');
+          form.append('file', dataBuffer, {
+              filename:Date.parse(new Date())+ `.${type}`,
+              contentType:`image/${type}`,
+              konwnLength: dataBuffer.length
+          })
+          // 注意此处必须返回一个 promise
+          ids[i] = ctx.service.upload.index(form)
+      }
+      await Promise.all(ids).then((allData) => {
+          ctx.body = {success: true, data: allData };
+      }).catch((err) => {
+          console.log(err);
+      })
+      
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
-
 module.exports = UploadController;
