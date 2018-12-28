@@ -7,7 +7,7 @@
             v-for="item in provinceList"
             :key="item.value"
             :label="item.name"
-            :value="item.value">
+            :value="item.value + ''">
           </el-option>
         </el-select>
       </div>
@@ -15,7 +15,7 @@
         <el-select v-model="cityCode" placeholder="请选择城市">
           <el-option
             v-for="item in cityList"
-            :key="item.value"
+            :key="item.value + ''"
             :label="item.name"
             :value="item.name">
           </el-option>
@@ -52,7 +52,6 @@
     </div>
   </div>
   <el-pagination
-     @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage1"
       :page-size="15"
@@ -65,7 +64,7 @@
 <script>
 import StarRate from 'vue-cute-rate'
 import { getAllProvinceList, getCityByProvince } from 'utils'
-import { getMovieList } from 'service'
+import { getMovieList, test} from 'service'
   export default {
     components: {
       StarRate,
@@ -83,7 +82,9 @@ import { getMovieList } from 'service'
       }
     },
     mounted() {
-      this.search()
+      console.log(test, 'test')
+      test()
+      // this.search()
     },
     methods: {
       provinceChange (value) {
@@ -109,7 +110,7 @@ import { getMovieList } from 'service'
         const { subjects = [], total } = await getMovieList({ cityCode: this.cityCode, pageNum: this.pageNum})
         loading.close();
         subjects.forEach(item => {
-          item.rating.average = (item.rating.average / 2).toFixed(1)
+          item.rating.average = (item.rating.average / 2).toFixed(1) + ''
         })
         this.dataSource = subjects
         this.total = total

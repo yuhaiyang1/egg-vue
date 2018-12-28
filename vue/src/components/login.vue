@@ -48,7 +48,8 @@ import { login } from 'service'
         this.$refs[formName].validate( async (valid) => {
           if (valid) {
            const res = await login(this.loginForm)
-            this.login(res)
+            const { name, _id } = res 
+            this.login({ name, id: _id })
             this.$router.push('home')
           } else {
             console.log('error submit!!');

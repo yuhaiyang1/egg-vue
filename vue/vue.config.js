@@ -16,7 +16,7 @@ module.exports = {
       port: 8080,
       proxy: {
         '/api': {
-            target: 'http://localhost:7001',
+            target: 'http://47.95.195.206:8080/channelManage/pay',
             "secure": false,
             changeOrigin: true,     // 跨域
             pathRewrite: {

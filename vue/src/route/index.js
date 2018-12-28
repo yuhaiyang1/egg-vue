@@ -13,7 +13,7 @@ const router =  new VueRouter({
   routes 
 })
 router.beforeEach((to, from, next) => {
-  console.log(store.state.user.userInfo.id, from, to)
+  console.log(store.state)
     if (store.state.user.userInfo.id ) {   //判断是否已经登录
       next();
     } else if(to.path !== '/login'){

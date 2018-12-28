@@ -6,4 +6,5 @@
 module.exports = app => {
   const { router, controller } = app;
   router.post('/movies', controller.home.movieList)
+  router.post('loveMovie', controller.home.loveMovie)
 };

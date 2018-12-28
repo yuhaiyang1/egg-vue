@@ -11,3 +11,6 @@ export const logout = async () => {
 export const getMovieList = async ( params = {}) => {
   return await axios('/api/movies', params)
 }
+export const test = async() => {
+  return await axios ('/channelManage/pay/unifiedOrder/qrcode',{}, 'get')
+}
